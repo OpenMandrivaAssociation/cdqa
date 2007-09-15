@@ -4,7 +4,7 @@
 %define	oname	CDQA
 %define	jarname	cdqa
 %define	version	20070201
-%define	release	%mkrel 5
+%define	release	%mkrel 6
 %define	jarlibs	axis gemo-utilities gnu.regexp
 
 Name:		%{name}
@@ -21,8 +21,6 @@ BuildRequires:	jpackage-utils java-devel ant %{jarlibs}
 Requires:	%{jarlibs}
 Provides:	%{oname} = %{version}-%{release}
 %if %{gcj_support}
-Requires(post):	java-gcj-compat
-Requires(postun):	java-gcj-compat
 BuildRequires:	java-gcj-compat-devel
 %else
 BuildArch:      noarch
