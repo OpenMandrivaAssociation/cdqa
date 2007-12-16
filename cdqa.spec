@@ -4,7 +4,7 @@
 %define	oname	CDQA
 %define	jarname	cdqa
 %define	version	20070201
-%define	release	%mkrel 6
+%define	release	%mkrel 7
 %define	jarlibs	axis gemo-utilities gnu.regexp
 
 Name:		%{name}
@@ -17,7 +17,7 @@ Url:		http://forge.objectweb.org/projects/activexml/
 # from cvs
 Source0:	%{name}-%{version}.tar.lzma
 BuildRequires:	lzma
-BuildRequires:	jpackage-utils java-devel ant %{jarlibs}
+BuildRequires:	java-rpmbuild java-devel ant %{jarlibs}
 Requires:	%{jarlibs}
 Provides:	%{oname} = %{version}-%{release}
 %if %{gcj_support}
