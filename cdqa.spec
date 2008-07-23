@@ -6,7 +6,7 @@
 
 Name:           cdqa
 Version:        20070201
-Release:        %mkrel 8
+Release:        %mkrel 10
 Epoch:          0
 Summary:        %{oname}
 License:        LGPL
