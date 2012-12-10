@@ -6,7 +6,7 @@
 
 Name:           cdqa
 Version:        20070201
-Release:        %mkrel 12
+Release:        13
 Epoch:          0
 Summary:        %{oname}
 License:        LGPL
@@ -22,7 +22,7 @@ BuildRequires:  java-gcj-compat-devel
 %else
 BuildArch:      noarch
 %endif
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRequires:    locales-en
 
 %description
 CDQA is part of ActiveXML framework code and implements a query 
@@ -43,13 +43,12 @@ Javadoc for %{oname}.
 rm -rf lib
 
 %build
+export LC_ALL=ISO-8859-1
 CLASSPATH=$(build-classpath %{jarlibs}) \
 %{ant} -f cdqa_build.xml jar javadoc -DDSTAMP=%{version}
 %{jar} -i build/lib/%{jarname}.jar
 
 %install
-rm -rf %{buildroot}
-
 install -d %{buildroot}%{_javadir}
 install -m644 build/lib/%{jarname}.jar -D %{buildroot}%{_javadir}/%{jarname}-%{version}.jar
 for jarname in \
@@ -74,9 +73,6 @@ cp -r build/api %{buildroot}%{_javadocdir}/%{name}-%{version}
 %{clean_gcjdb}
 %endif
 
-%clean
-rm -rf %{buildroot}
-
 %files
 %defattr(-,root,root)
 %{_javadir}/*.jar
@@ -89,3 +85,49 @@ rm -rf %{buildroot}
 %defattr(0644,root,root,0755)
 %doc %{_javadocdir}/%{name}-%{version}
 %doc %{_javadocdir}/%{name}
+
+
+%changelog
+* Thu Dec 09 2010 Oden Eriksson <oeriksson@mandriva.com> 0:20070201-12mdv2011.0
++ Revision: 616978
+- the mass rebuild of 2010.0 packages
+
+* Wed Sep 02 2009 Thierry Vignaud <tv@mandriva.org> 0:20070201-11mdv2010.0
++ Revision: 424792
+- rebuild
+
+* Wed Jul 23 2008 Thierry Vignaud <tv@mandriva.org> 0:20070201-10mdv2009.0
++ Revision: 243468
+- rebuild
+
+* Fri Jan 04 2008 David Walluck <walluck@mandriva.org> 0:20070201-8mdv2008.1
++ Revision: 145453
+- fix build
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+  + Anssi Hannula <anssi@mandriva.org>
+    - buildrequire java-rpmbuild, i.e. build with icedtea on x86(_64)
+    - remove unnecessary Requires(post) on java-gcj-compat
+
+
+* Mon Feb 05 2007 Per Øyvind Karlsen <pkarlsen@mandriva.com> 20070201-5mdv2007.0
++ Revision: 116505
+- complete description
+- fix descriptiojn (thx Ric)
+- fix permissions for gcj libraries
+- to make files included for gcj built stuff conditional too
+- fix cdqa.jar symlink
+- be sure to use actual snapshot date as version rather than current date
+  misc packaging fixes
+- export CLASSPATH for real
+- Import cdqa
+
+  + David Walluck <walluck@mandriva.org>
+    - add %%post and %%postun for %%gcj_support
+    - aot compile
+
